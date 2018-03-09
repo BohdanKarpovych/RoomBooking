@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Room booking</title>
+</head>
+<body>
+    <div>
+        <h3>Room list</h3>
+        <table>
+            <tr>
+                <td><p>Room number</p></td>
+            </tr>
+            @foreach (var b in ViewBag.Rooms)
+            {
+                <tr>
+                    <td><p>@b.RoomNumber</p></td>
+                    <td><p><a href="/Home/Book/@b.RoomId">Book</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
