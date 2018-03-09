@@ -14,6 +14,7 @@ namespace RoomBooking.Models
             db.Rooms.Add(new Room { RoomNumber = "606" });
             db.Rooms.Add(new Room { RoomNumber = "607" });
             db.Rooms.Add(new Room { RoomNumber = "608" });
+            db.Rooms.Add(new Room { RoomNumber = "609" });
 
             db.Persons.Add(new Person { FirstName = "John", LastName = "A" });
             db.Persons.Add(new Person { FirstName = "Will", LastName = "B" });
