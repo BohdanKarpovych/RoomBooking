@@ -12,9 +12,7 @@ namespace RoomBooking.Controllers
         public ActionResult Index()
         {
             IEnumerable<Room> rooms = db.Rooms;
-            IEnumerable<Booking> bookings = db.Bookings;
             ViewBag.Rooms = rooms;
-            ViewBag.Bookings = bookings;
             return View();
         }
 
@@ -22,19 +20,15 @@ namespace RoomBooking.Controllers
         public ActionResult Book(int id)
         {
             ViewBag.RoomId = id;
+
             return View();
         }
 
-        [HttpPost]
-        public string Book(Booking booking)
-        {
-            purchase.Date = DateTime.Now;
-            // добавляем информацию о покупке в базу данных
-            db.Purchases.Add(purchase);
-            // сохраняем в бд все изменения
-            db.SaveChanges();
-            return "Спасибо," + purchase.Person + ", за покупку!";
-        }
+        //[HttpPost]
+        //public string Book(Booking booking)
+        //{
+            
+        //}
 
         //public ActionResult About()
         //{
