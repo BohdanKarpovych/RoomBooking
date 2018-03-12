@@ -14,8 +14,6 @@ namespace RoomBooking
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new RoomDbInitializer());
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

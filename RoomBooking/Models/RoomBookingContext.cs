@@ -5,8 +5,11 @@ namespace RoomBooking.Models
 {
     public class RoomBookingContext : DbContext
     {
+        public RoomBookingContext() : base("RoomBookingContext")
+        {
+        }
+
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Person> Persons { get; set; }
         public DbSet<Booking> Bookings { get; set; }
     }
 }

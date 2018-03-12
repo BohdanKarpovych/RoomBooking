@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Order</title>
+</head>
+<body>
+    <div>
+        <h3>Order a room @ViewBag.RoomNumber</h3>
+        <table>
+            <tr>
+                <td><p>Starting</p></td>
+                <td><p>Ending</p></td>
+            </tr>
+            @foreach (var item in ViewBag.RoomSchedule)
+            {
+                <tr>
+                    <td><p>@item.StartOfSession</p></td>
+                    <td><p>@item.EndOfSession</p></td>
+                </tr>
+            }
+        </table>
+        <form method="post" action="">
+            <input type="hidden" value="@ViewBag.RoomId" name="RoomId" />
+            <table>
+                <tr>
+                    <td><p>Input your firstname</p></td>
+                    <td><input type="text" name="FirstName" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Input your lasttname</p></td>
+                    <td><input type="text" name="LastName"/></td>
+                </tr>
+                <tr>
+                    <td><p>You want to start at</p></td>
+                    <td><input type="text" name="StartOfSession" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Duration</p></td>
+                    <td><input type="text" name="EndOfSession" /></td>
+                </tr>
+                <tr><td><input type="submit" value="Submit"/></td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
