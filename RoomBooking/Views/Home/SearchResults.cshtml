@@ -1,6 +1,5 @@
-﻿@using RoomBooking.Models
-@model IEnumerable<Room>
-@{
+﻿@{
+    ViewBag.Title = "SearchResults";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,13 +9,13 @@
     <title>Rooms list</title>
 </head>
 <body>
-    <p><a href="/Home/Find">Search</a></p>
     <div>
+        <p>Search results</p>
         <table>
             <tr>
                 <td><p>Room number</p></td>
             </tr>
-            @foreach (Room item in Model)
+            @foreach (var item in ViewBag.Rooms)
             {
                 <tr>
                     <td><p>@item.RoomNumber</p></td>
@@ -27,3 +26,4 @@
     </div>
 </body>
 </html>
+

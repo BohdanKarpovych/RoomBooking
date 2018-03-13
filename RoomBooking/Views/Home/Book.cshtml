@@ -1,4 +1,7 @@
-﻿<html>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Order</title>
@@ -6,6 +9,7 @@
 <body>
     <div>
         <h3>Order a room @ViewBag.RoomNumber</h3>
+        <h4>Actual room schedule</h4>
         <table>
             <tr>
                 <td><p>Starting</p></td>
@@ -32,11 +36,11 @@
                 </tr>
                 <tr>
                     <td><p>You want to start at</p></td>
-                    <td><input type="text" name="StartOfSession" /> </td>
+                    <td><input type="time" name="StartOfSession" /> </td>
                 </tr>
                 <tr>
-                    <td><p>Duration</p></td>
-                    <td><input type="text" name="EndOfSession" /></td>
+                    <td><p>Duration(min)</p></td>
+                    <td><input type="number" name="Duration" min="15" step="5"/></td>
                 </tr>
                 <tr><td><input type="submit" value="Submit"/></td><td></td></tr>
             </table>
