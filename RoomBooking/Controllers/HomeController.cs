@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using RoomBooking.Models;
 using System.Collections.Generic;
-using System.Data.Entity;
+using RoomBooking.ServiceClasses;
 using System.Linq;
 
 namespace RoomBooking.Controllers
@@ -34,33 +34,16 @@ namespace RoomBooking.Controllers
         public string Book(Booking booking, int Duration)
         {
             booking.EndOfSession = booking.StartOfSession + new TimeSpan(0, Duration, 0);
-            if (CheckingBooking(booking))
+            List<Booking> bookings = db.Bookings.ToList();
+            var a = bookings.FindAll(x => x.RoomId == booking.RoomId);
+            Check check = new Check();
+            if (check.CheckingBooking(booking, a))
             {
                 db.Bookings.Add(booking);
                 db.SaveChanges();
                 return "Your order has been succesfully done!";
             }
             return "Time is already occupated or passed";
-        }
-
-        private bool CheckingBooking(Booking booking)
-        {
-            TimeSpan timeSpan = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
-            if (booking.StartOfSession > timeSpan)
-            {
-                List<Booking> bookings = db.Bookings.ToList();
-                var a = bookings.FindAll(x => x.RoomId == booking.RoomId);
-                foreach (var item in a)
-                {
-                    if (booking.StartOfSession <= item.EndOfSession)
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
         }
 
         [HttpGet]

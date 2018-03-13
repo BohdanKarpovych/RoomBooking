@@ -157,6 +157,7 @@
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomBookingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceClasses\Check.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RoomBooking.mdf" />
