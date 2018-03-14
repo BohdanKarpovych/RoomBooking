@@ -19,15 +19,22 @@ namespace RoomBooking.Controllers
         [HttpGet]
         public ActionResult Book(int id)
         {
-            TimeSpan timeSpan = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            List<Booking> bookings = db.Bookings.ToList();
-            List<Room> rooms = db.Rooms.ToList();
-            ViewBag.RoomNumber = rooms.Find(x => x.RoomId == id).RoomNumber;
-            ViewBag.RoomId = id;
-            var temp = bookings.FindAll(x => x.RoomId == id && (x.StartOfSession >= timeSpan || x.EndOfSession >= timeSpan));
-            temp.Sort((a, b) => a.StartOfSession.CompareTo(b.StartOfSession));
-            ViewBag.RoomSchedule = temp;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                TimeSpan timeSpan = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                List<Booking> bookings = db.Bookings.ToList();
+                List<Room> rooms = db.Rooms.ToList();
+                ViewBag.RoomNumber = rooms.Find(x => x.RoomId == id).RoomNumber;
+                ViewBag.RoomId = id;
+                var temp = bookings.FindAll(x => x.RoomId == id && (x.StartOfSession >= timeSpan || x.EndOfSession >= timeSpan));
+                temp.Sort((a, b) => a.StartOfSession.CompareTo(b.StartOfSession));
+                ViewBag.RoomSchedule = temp;
+                return View();
+            }
+            else
+            {
+               return Content("<script>window.location = '/Account/Login';</script>");
+            }
         }
 
         [HttpPost]
