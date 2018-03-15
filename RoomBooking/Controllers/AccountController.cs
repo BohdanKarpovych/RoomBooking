@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using RoomBooking.Repositories;
 
 namespace RoomBooking.Controllers
 {
@@ -23,10 +24,9 @@ namespace RoomBooking.Controllers
             {
                 // поиск пользователя в бд
                 User user = null;
-                using (RoomBookingContext db = new RoomBookingContext())
+                using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                 {
-                    user = db.Users.FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
-
+                    user = db.GetUser(new User() { Login = model.Login, Password = model.Password });
                 }
                 if (user != null)
                 {
@@ -53,31 +53,22 @@ namespace RoomBooking.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                using (RoomBookingContext db = new RoomBookingContext())
+                using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                 {
-                    user = db.Users.FirstOrDefault(u => u.Login == model.Login);
+                    user = db.GetUser(new User() { Login = model.Login, Password = model.Password });
                 }
                 if (user == null)
                 {
                     // создаем нового пользователя
-                    using (RoomBookingContext db = new RoomBookingContext())
+                    using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                     {
-                        db.Users.Add(new User { Login = model.Login, Password = model.Password });
-                        db.SaveChanges();
-
-                        user = db.Users.Where(u => u.Login == model.Login && u.Password == model.Password).FirstOrDefault();
+                        db.Create(new User { Login = model.Login, Password = model.Password });
+                        db.Save();
                     }
-                    // если пользователь удачно добавлен в бд
-                    if (user != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Login, true);
-                        return RedirectToAction("Index", "Home");
-                    }
+                    FormsAuthentication.SetAuthCookie(model.Login, true);
+                    return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "User with such login already exists");
-                }
+                ModelState.AddModelError("", "User with such login already exists");
             }
 
             return View(model);
