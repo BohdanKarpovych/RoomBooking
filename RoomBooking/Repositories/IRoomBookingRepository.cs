@@ -14,8 +14,8 @@ namespace RoomBooking.Repositories
         List<Booking> GetBookingList();
         Booking GetBooking(int id);
       
-        bool Create(Room room);
-        bool Create(Booking booking);
+        void Create(Room room);
+        void Create(Booking booking);
 
         bool Update(Room room);
         bool Update(Booking booking);

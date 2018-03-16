@@ -8,24 +8,24 @@ namespace RoomBooking.ServiceClasses
 {
     public class Check
     {
-        TimeSpan timeSpan;
+        //TimeSpan timeSpan;
 
-        public bool CheckingBooking(Booking booking, List<Booking> list)
-        {
-            timeSpan = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        //public bool CheckingBooking(DateTime date, List<Booking> list)
+        //{
+        //    var timeNow = DateTime.Now;
 
-            if (booking.StartOfSession > timeSpan)
-            {
-                foreach (var item in list)
-                {
-                    if (booking.StartOfSession <= item.EndOfSession)
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
+        //    if (date > timeNow)
+        //    {
+        //        foreach (var item in list)
+        //        {
+        //            if (date > item.Date)
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //        return true;
+        //    }
+        //    return false;
+        //}
     }
 }

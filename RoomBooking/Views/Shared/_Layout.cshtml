@@ -9,6 +9,14 @@
     <nav>
         <ul class="menu">
             <li>@Html.ActionLink("Home page", "Index", "Home")</li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>Current user: @User.Identity.Name @Html.ActionLink("Log out", "Logoff", "Account")</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Log in", "Login", "Account") @Html.ActionLink("Register", "Register", "Account")</li>
+            }
         </ul>
     </nav>
     @RenderBody()

@@ -15,7 +15,6 @@ namespace RoomBooking.Repositories
         {
             db = new RoomBookingContext();
         }
-
         public List<Room> GetRoomList()
         {
             return db.Rooms.ToList();
@@ -36,15 +35,21 @@ namespace RoomBooking.Repositories
             return db.Bookings.Find(id);
         }
 
-        public bool Create(Room room)
+        public void Create(Room room)
         {
             db.Rooms.Add(room);
-            return true;
         }
-        public bool Create(Booking booking)
+        public void Create(Booking booking)
         {
-            db.Bookings.Add(booking);
-            return true;
+            //var duration = Math.Abs(booking.StartOfSession - booking.EndOfSession);
+            //if (duration >= 30 && duration % 30 == 0)
+            //{
+                db.Bookings.Add(booking);
+            //}
+            //else
+            //{
+            //    throw new Exception("Incorrect duration");
+            //}
         }
 
         public bool Update(Room room)

@@ -4,6 +4,17 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: 0,
+                maxDate: "+1m"
+            });
+        });
+    </script>
     <title>Order</title>
 </head>
 <body>
@@ -24,17 +35,24 @@
             }
         </table>
         <form method="post" action="">
-            <input type="hidden" value="@ViewBag.RoomId" name="RoomId"/>
+            <input type="hidden" value="@ViewBag.RoomId" name="RoomId" />
+            <input type="hidden" value="@ViewBag.UserId" name="UserId">
             <table>
                 <tr>
-                    <td><p>You want to start at</p></td>
-                    <td><input type="time" name="StartOfSession" /> </td>
+                    <td><p>Date</p></td>
+                    <td><input type="text" id="datepicker" name="Date"></td>
+                </tr>
+                <tr>
+                    <td><p>Start(working hours: 9:00 AM - 19:00 PM)</p></td>
+                    <td><input type="time" name="StartOfSession" required /> </td>
                 </tr>
                 <tr>
                     <td><p>Duration(min)</p></td>
-                    <td><input type="number" name="Duration" min="15" step="5"/></td>
+                    <td><input type="number" name="Duration" required min="30" step="30" /></td>
                 </tr>
-                <tr><td><input type="submit" value="Submit"/></td><td></td></tr>
+                <tr>
+                    <td><input type="submit" value="Submit" /></td>
+                </tr>
             </table>
         </form>
     </div>

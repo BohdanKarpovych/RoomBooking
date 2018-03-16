@@ -37,7 +37,12 @@ namespace RoomBooking.Repositories
 
         public User GetUser(User user)
         {
-            return db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).FirstOrDefault();
+            return db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).First();
+        }
+
+        public int GetUserId(string name)
+        {
+            return db.Users.Where(u => u.Login == name).First().UserId;
         }
 
         public void Save()

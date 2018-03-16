@@ -208,6 +208,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\OrderResult.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
