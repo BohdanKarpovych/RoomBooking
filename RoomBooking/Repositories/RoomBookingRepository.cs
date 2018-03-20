@@ -30,6 +30,12 @@ namespace RoomBooking.Repositories
             return db.Bookings.ToList();
         }
 
+        public List<Booking> GetActualBookingList()
+        {
+            var date = DateTime.Now;
+            return db.Bookings.ToList().FindAll(x => x.StartOfSession > date || x.EndOfSession > date);
+        }
+
         public Booking GetBooking(int id)
         {
             return db.Bookings.Find(id);
@@ -39,17 +45,10 @@ namespace RoomBooking.Repositories
         {
             db.Rooms.Add(room);
         }
+
         public void Create(Booking booking)
         {
-            //var duration = Math.Abs(booking.StartOfSession - booking.EndOfSession);
-            //if (duration >= 30 && duration % 30 == 0)
-            //{
-                db.Bookings.Add(booking);
-            //}
-            //else
-            //{
-            //    throw new Exception("Incorrect duration");
-            //}
+            db.Bookings.Add(booking);
         }
 
         public bool Update(Room room)

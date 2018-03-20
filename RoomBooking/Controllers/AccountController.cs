@@ -22,7 +22,6 @@ namespace RoomBooking.Controllers
         {
             if (ModelState.IsValid)
             {
-                // поиск пользователя в бд
                 User user = null;
                 using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                 {
@@ -59,7 +58,6 @@ namespace RoomBooking.Controllers
                 }
                 if (user == null)
                 {
-                    // создаем нового пользователя
                     using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                     {
                         db.Create(new User { Login = model.Login, Password = model.Password });

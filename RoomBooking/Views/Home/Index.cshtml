@@ -1,5 +1,6 @@
-﻿@using RoomBooking.Models
-@model IEnumerable<Room>
+﻿@model PagedList.IPagedList<RoomBooking.Models.Room>
+@using PagedList.Mvc;
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,19 +12,20 @@
 </head>
 <body>
     <p><a href="/Home/Find">Search</a></p>
-    <div>
-        <table>
-            <tr>
-                <td><p>Room number</p></td>
-            </tr>
-            @foreach (Room item in Model)
+    <table>
+        <tr>
+            <td><p>Room number</p></td>
+        </tr>
+        @foreach (var item in Model)
             {
-                <tr>
-                    <td><p>@item.RoomNumber</p></td>
-                    <td><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
-                </tr>
-            }
-        </table>
-    </div>
+            <tr>
+                <td><p>@item.RoomNumber</p></td>
+                <td><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+            </tr>
+        }
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </body>
 </html>

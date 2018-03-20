@@ -22,12 +22,15 @@ namespace RoomBooking.Repositories
 
         public void Create(User user)
         {
-            var userCheck = db.Users.Find(user.Login);
+            var userCheck = db.Users.Where(u => user.Login == u.Login).FirstOrDefault();
             if (userCheck == null)
             {
                 db.Users.Add(user);
             }
-            throw new Exception("User with such login already exists");
+            else
+            {
+                throw new Exception("User with such login already exists");
+            }
         }
 
         public User GetUser(int id)
@@ -37,7 +40,7 @@ namespace RoomBooking.Repositories
 
         public User GetUser(User user)
         {
-            return db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).First();
+            return db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).FirstOrDefault();
         }
 
         public int GetUserId(string name)

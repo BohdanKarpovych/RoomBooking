@@ -1,9 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "OrderResult";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>OrderResult</h2>
-<p>@ViewBag.Message</p>
-
+@if (ViewBag.Status)
+{
+    <p>@ViewBag.Message</p>
+}
+else
+{
+    <p style="color:red">@ViewBag.Message</p>
+}

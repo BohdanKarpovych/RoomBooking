@@ -5,6 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -23,14 +24,16 @@
         <h4>Actual room schedule</h4>
         <table>
             <tr>
+                <td><p>Date</p></td>
                 <td><p>Starting</p></td>
                 <td><p>Ending</p></td>
             </tr>
             @foreach (var item in ViewBag.RoomSchedule)
             {
                 <tr>
-                    <td><p>@item.StartOfSession</p></td>
-                    <td><p>@item.EndOfSession</p></td>
+                    <td><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
+                    <td><p>@item.StartOfSession.ToString("HH:mm")</p></td>
+                    <td><p>@item.EndOfSession.ToString("HH:mm")</p></td>
                 </tr>
             }
         </table>
@@ -39,11 +42,11 @@
             <input type="hidden" value="@ViewBag.UserId" name="UserId">
             <table>
                 <tr>
-                    <td><p>Date</p></td>
-                    <td><input type="text" id="datepicker" name="Date"></td>
+                    <td><p>Select date</p></td>
+                    <td><input type="text" id="datepicker" name="Date" required></td>
                 </tr>
                 <tr>
-                    <td><p>Start(working hours: 9:00 AM - 19:00 PM)</p></td>
+                    <td><p>Select time(working hours: 9:00 AM - 07:00 PM)</p></td>
                     <td><input type="time" name="StartOfSession" required /> </td>
                 </tr>
                 <tr>
