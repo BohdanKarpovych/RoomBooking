@@ -1,16 +1,20 @@
 ﻿using RoomBooking.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using RoomBooking.Repositories;
+using RoomBooking.ServiceClasses;
 
 namespace RoomBooking.Controllers
 {
     public class AccountController : Controller
     {
+        MD5HashCalculating md5;
+
+        public AccountController()
+        {
+            md5 = new MD5HashCalculating();
+        }
+
         public ActionResult Login()
         {
             return View();
@@ -25,7 +29,7 @@ namespace RoomBooking.Controllers
                 User user = null;
                 using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                 {
-                    user = db.GetUser(new User() { Login = model.Login, Password = model.Password });
+                    user = db.GetUser(new User() { Login = model.Login, Password = md5.CalculateMD5Hash(model.Password) });
                 }
                 if (user != null)
                 {
@@ -54,13 +58,13 @@ namespace RoomBooking.Controllers
                 User user = null;
                 using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                 {
-                    user = db.GetUser(new User() { Login = model.Login, Password = model.Password });
+                    user = db.GetUser(new User() { Login = model.Login, Password = md5.CalculateMD5Hash(model.Password) });
                 }
                 if (user == null)
                 {
                     using (RoomBookingAuthRepository db = new RoomBookingAuthRepository())
                     {
-                        db.Create(new User { Login = model.Login, Password = model.Password });
+                        db.Create(new User { Login = model.Login, Password = md5.CalculateMD5Hash(model.Password) });
                         db.Save();
                     }
                     FormsAuthentication.SetAuthCookie(model.Login, true);

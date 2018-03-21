@@ -159,12 +159,12 @@
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomBookingContext.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRoomBookingRepository.cs" />
     <Compile Include="Repositories\RoomBookingAuthRepository.cs" />
     <Compile Include="Repositories\RoomBookingRepository.cs" />
     <Compile Include="ServiceClasses\Check.cs" />
+    <Compile Include="ServiceClasses\MD5HashCalculating.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RoomBooking.mdf" />
@@ -216,6 +216,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\OrderResult.cshtml" />
+    <Content Include="Views\Home\PersonalPage.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

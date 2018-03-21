@@ -12,18 +12,20 @@
 </head>
 <body>
     <p><a href="/Home/Find">Search</a></p>
-    <table>
-        <tr>
-            <td><p>Room number</p></td>
-        </tr>
-        @foreach (var item in Model)
-            {
+    <div class="col-md-3">
+        <table>
             <tr>
-                <td><p>@item.RoomNumber</p></td>
-                <td><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+                <td><p>Room number</p></td>
             </tr>
-        }
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><p>@item.RoomNumber</p></td>
+                    <td><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
     <br />
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

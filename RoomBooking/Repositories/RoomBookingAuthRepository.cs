@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using RoomBooking.ServiceClasses;
 using RoomBooking.Models;
 
 namespace RoomBooking.Repositories
@@ -9,10 +9,12 @@ namespace RoomBooking.Repositories
     public class RoomBookingAuthRepository : IDisposable
     {
         private RoomBookingContext db;
+        private MD5HashCalculating md5;
 
         public RoomBookingAuthRepository()
         {
             db = new RoomBookingContext();
+            md5 = new MD5HashCalculating();
         }
 
         public List<User> GetUserList()
@@ -40,7 +42,7 @@ namespace RoomBooking.Repositories
 
         public User GetUser(User user)
         {
-            return db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).FirstOrDefault();
+            return db.Users.Where(u => u.Login == user.Login).FirstOrDefault();
         }
 
         public int GetUserId(string name)
@@ -58,7 +60,7 @@ namespace RoomBooking.Repositories
             var user = db.Users.Find(userId);
             if (user != null)
             {
-                user.Password = newPass;
+                user.Password = md5.CalculateMD5Hash(newPass);
                 return true;
             }
             return false;

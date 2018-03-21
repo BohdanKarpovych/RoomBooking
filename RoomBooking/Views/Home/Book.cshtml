@@ -8,35 +8,30 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker({
-                minDate: 0,
-                maxDate: "+1m"
-            });
-        });
-    </script>
     <title>Order</title>
 </head>
 <body>
     <div>
         <h3>Order a room @ViewBag.RoomNumber</h3>
-        <h4>Actual room schedule</h4>
-        <table>
-            <tr>
-                <td><p>Date</p></td>
-                <td><p>Starting</p></td>
-                <td><p>Ending</p></td>
-            </tr>
-            @foreach (var item in ViewBag.RoomSchedule)
-            {
+        @if (ViewBag.RoomSchedule.Count > 0)
+        {
+            <h4>Actual room schedule</h4>
+            <table>
                 <tr>
-                    <td><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
-                    <td><p>@item.StartOfSession.ToString("HH:mm")</p></td>
-                    <td><p>@item.EndOfSession.ToString("HH:mm")</p></td>
+                    <td><p>Date</p></td>
+                    <td><p>Starting</p></td>
+                    <td><p>Ending</p></td>
                 </tr>
-            }
-        </table>
+                @foreach (var item in ViewBag.RoomSchedule)
+                {
+                    <tr>
+                        <td><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
+                        <td><p>@item.StartOfSession.ToString("HH:mm")</p></td>
+                        <td><p>@item.EndOfSession.ToString("HH:mm")</p></td>
+                    </tr>
+                }
+            </table>
+        }
         <form method="post" action="">
             <input type="hidden" value="@ViewBag.RoomId" name="RoomId" />
             <input type="hidden" value="@ViewBag.UserId" name="UserId">
@@ -59,5 +54,13 @@
             </table>
         </form>
     </div>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: 0,
+                maxDate: "+1m"
+            });
+        });
+    </script>
 </body>
 </html>

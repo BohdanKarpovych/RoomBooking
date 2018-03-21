@@ -87,6 +87,17 @@ namespace RoomBooking.Controllers
             return View("SearchResults");
         }
 
+        [HttpGet]
+        public ActionResult ToPersonalPage(string UserName)
+        {
+            using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
+            {
+                var userId = dbauth.GetUserId(UserName);
+                ViewBag.BookingList = db.GetBookingList().FindAll(u => u.UserId == userId);
+            }
+            return View("PersonalPage");
+        }
+
         //public ActionResult About()
         //{
         //    ViewBag.Message = "Your application description page.";
