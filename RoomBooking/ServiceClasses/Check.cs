@@ -37,10 +37,11 @@ namespace RoomBooking.ServiceClasses
             return false;
         }
 
-        public bool IsInWorkingRange(DateTime dateTime)
+        public bool IsInWorkingRange(DateTime bookingDateTime)
         {
-            if (dateTime.Hour >= StartWork.Hours &&
-                dateTime.Hour <= EndWork.Hours)
+            TimeSpan bookingStart = new TimeSpan(bookingDateTime.Hour, bookingDateTime.Minute, bookingDateTime.Second);
+            if (bookingStart >= StartWork &&
+                bookingStart <= EndWork)
             {
                 return true;
             }

@@ -53,6 +53,8 @@ namespace RoomBooking.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
+            //System.Text.RegularExpressions.Regex a = new System.Text.RegularExpressions.Regex(@"[a - z]{8,}");
+            //System.Text.RegularExpressions.MatchCollection m = a.Matches(model.Password);
             if (ModelState.IsValid)
             {
                 User user = null;

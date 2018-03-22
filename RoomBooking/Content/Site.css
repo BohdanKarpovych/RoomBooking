@@ -26,8 +26,10 @@ nav {
     }
 
 table {
-    vertical-align: middle;
-    text-align: left;
+    border-collapse: collapse;
+}
+
+table, th, td {
     border: 1px solid black;
 }
 
