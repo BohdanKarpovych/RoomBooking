@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Room booking</title>
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/SiteMain.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
             <li>@Html.ActionLink("Home page", "Index", "Home")</li>
             @if (User.Identity.IsAuthenticated)
             {
-                <li>Current user: @User.Identity.Name @Html.ActionLink("Personal page", "ToPersonalPage", "Home",  new { UserName = User.Identity.Name }, null) @Html.ActionLink("Log out", "Logoff", "Account")</li>
+                <li>Current user: @User.Identity.Name @Html.ActionLink("Personal page", "PersonalPage", "Home",  new { UserName = User.Identity.Name }, null) @Html.ActionLink("Log out", "Logoff", "Account")</li>
             }
             else
             {

@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "SearchResults";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,15 +10,15 @@
 <body>
     <div>
         <p>Search results</p>
-        <table>
-            <tr>
-                <td><p>Room number</p></td>
+        <table class="mainTables">
+            <tr class="mainTables">
+                <th class="mainTables" colspan="2"><p>Room list</p></th>
             </tr>
             @foreach (var item in ViewBag.Rooms)
             {
-                <tr>
-                    <td><p>@item.RoomNumber</p></td>
-                    <td><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+                <tr class="mainTables">
+                    <td class="mainTables"><p>@item.RoomNumber</p></td>
+                    <td class="mainTables"><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
                 </tr>
             }
         </table>

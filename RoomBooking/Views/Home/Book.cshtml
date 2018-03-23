@@ -4,8 +4,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Order</title>
@@ -16,18 +16,18 @@
         @if (ViewBag.RoomSchedule.Count > 0)
         {
             <h4>Actual room schedule</h4>
-            <table>
-                <tr>
-                    <td><p>Date</p></td>
-                    <td><p>Starting</p></td>
-                    <td><p>Ending</p></td>
+            <table class="mainTables">
+                <tr class="mainTables">
+                    <th class="mainTables"><p>Date</p></th>
+                    <th class="mainTables"><p>Starting</p></th>
+                    <th class="mainTables"><p>Ending</p></th>
                 </tr>
                 @foreach (var item in ViewBag.RoomSchedule)
                 {
-                    <tr>
-                        <td><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
-                        <td><p>@item.StartOfSession.ToString("HH:mm")</p></td>
-                        <td><p>@item.EndOfSession.ToString("HH:mm")</p></td>
+                    <tr class="mainTables">
+                        <td class="mainTables"><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
+                        <td class="mainTables"><p>@item.StartOfSession.ToString("HH:mm")</p></td>
+                        <td class="mainTables"><p>@item.EndOfSession.ToString("HH:mm")</p></td>
                     </tr>
                 }
             </table>
@@ -49,6 +49,7 @@
                     <td><input type="number" name="Duration" required min="30" step="30" /></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td><input type="submit" value="Submit" /></td>
                 </tr>
             </table>

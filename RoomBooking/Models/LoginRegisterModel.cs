@@ -18,10 +18,8 @@ namespace RoomBooking.Models
         public string Login { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = "Must be between 8 and 20 characters", MinimumLength = 8)]
-        //[RegularExpression(@"(?=^[^\s]{8,20}$)(?=.*\d)(?=.*[a - zA - Z])", ErrorMessage ="Password must be between 8 and 20 characters, contain digits, lower and upper case english letters")]
-        //[RegularExpression(@"[a-zA-Z\d]{8,20}", ErrorMessage = "Password must be between 8 and 20 characters, contain digits, lower and upper case english letters")]
-        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$", ErrorMessage = "Password must be between 8 and 20 characters, contain digits, lower and upper case english letters")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$", 
+            ErrorMessage = "Password must be between 8 and 20 characters, contain digits, lower and upper case english letters")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

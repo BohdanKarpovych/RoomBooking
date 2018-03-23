@@ -1,6 +1,7 @@
 ﻿@{
-    ViewBag.Title = "PersonalPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -8,20 +9,20 @@
 </head>
 <body>
     <h2>Yours bookings</h2>
-    <table>
-        <tr>
-            <td><p>Room number</p></td>
-            <td><p>Date</p></td>
-            <td><p>Starting</p></td>
-            <td><p>Ending</p></td>
+    <table class="mainTables">
+        <tr class="mainTables">
+            <th class="mainTables"><p>Room number</p></th>
+            <th class="mainTables"><p>Date</p></th>
+            <th class="mainTables"><p>Starting</p></th>
+            <th class="mainTables"><p>Ending</p></th>
         </tr>
         @foreach (var item in ViewBag.BookingList)
         {
-            <tr>
-                <td><p>@item.Room.RoomNumber</p></td>
-                <td><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
-                <td><p>@item.StartOfSession.ToString("HH:mm")</p></td>
-                <td><p>@item.EndOfSession.ToString("HH:mm")</p></td>
+            <tr class="mainTables">
+                <td class="mainTables"><p>@item.Room.RoomNumber</p></td>
+                <td class="mainTables"><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
+                <td class="mainTables"><p>@item.StartOfSession.ToString("HH:mm")</p></td>
+                <td class="mainTables"><p>@item.EndOfSession.ToString("HH:mm")</p></td>
             </tr>
         }
     </table>

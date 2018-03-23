@@ -25,11 +25,14 @@ nav {
         color: red;
     }
 
-table {
+table.mainTables, th.mainTables, td.mainTables, tr.mainTables {
     border-collapse: collapse;
+    text-align: center;
+    width: 400px;
+    border: 1px solid black;
 }
 
-table, th, td {
+table {
     border: 1px solid black;
 }
 

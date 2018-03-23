@@ -1,8 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -12,9 +11,9 @@
         <table>
             <tr>
                 <td><p>Input room number</p></td>
-                <td><input type="text" name="keyword" /> </td>
+                <td><input type="text" name="keyword" required /> </td>
+                <td><input type="submit" value="Submit" /></td>
             </tr>
-            <tr><td><input type="submit" value="Submit" required/></td><td></td></tr>
         </table>
     </form>
 </body>

@@ -20,33 +20,29 @@ namespace RoomBooking.Controllers
 
         public ActionResult Index(int? page)
         {
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(db.GetRoomList().ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
-        public ActionResult Book(int id)
+        [Authorize]
+        public ActionResult Book(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (id != null)
             {
-                List<Booking> bookings = db.GetActualBookingList();
-                List<Room> rooms = db.GetRoomList();
-                ViewBag.RoomNumber = rooms.Find(x => x.RoomId == id).RoomNumber;
+                ViewBag.RoomNumber = db.GetRoomList().Find(x => x.RoomId == id).RoomNumber;
                 ViewBag.RoomId = id;
                 using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
                 {
                     ViewBag.UserId = dbauth.GetUserId(User.Identity.Name);
                 }
-                var bookingsOfCurrentRoom = bookings.FindAll(x => x.RoomId == id);
+                var bookingsOfCurrentRoom = db.GetActualBookingList().FindAll(x => x.RoomId == id);
                 bookingsOfCurrentRoom.Sort((a, b) => a.StartOfSession.CompareTo(b.StartOfSession));
                 ViewBag.RoomSchedule = bookingsOfCurrentRoom;
                 return View();
             }
-            else
-            {
-                return Content("<script>window.location = '/Account/Login';</script>");
-            }
+            return Redirect("/Home/Index");
         }
 
         [HttpPost]
@@ -54,8 +50,16 @@ namespace RoomBooking.Controllers
         {
             //Parse date
             var _date = Date.Split('/');
-            booking.StartOfSession = new DateTime(int.Parse(_date[2]), int.Parse(_date[0]), int.Parse(_date[1]), booking.StartOfSession.Hour, booking.StartOfSession.Minute, booking.StartOfSession.Second);
-            
+            try
+            {
+                booking.StartOfSession = new DateTime(int.Parse(_date[2]), int.Parse(_date[0]), int.Parse(_date[1]), booking.StartOfSession.Hour, booking.StartOfSession.Minute, booking.StartOfSession.Second);
+            }
+            catch (FormatException)
+            {
+                ViewBag.Status = false;
+                ViewBag.Message = "Date is invalid";
+                return View("OrderResult");
+            }
             booking.EndOfSession = booking.StartOfSession.AddMinutes(Duration);
             List<Booking> bookings = db.GetBookingList();
             var a = bookings.FindAll(x => x.RoomId == booking.RoomId);
@@ -82,20 +86,23 @@ namespace RoomBooking.Controllers
         [HttpPost]
         public ActionResult Find(string keyword)
         {
-            List<Room> rooms = db.GetRoomList().FindAll(x => x.RoomNumber.Contains(keyword));
-            ViewBag.Rooms = rooms;
+            ViewBag.Rooms = db.GetRoomList().FindAll(x => x.RoomNumber.Contains(keyword)); 
             return View("SearchResults");
         }
 
         [HttpGet]
-        public ActionResult ToPersonalPage(string UserName)
+        public ActionResult PersonalPage(string UserName)
         {
-            using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
+            if (UserName != null)
             {
-                var userId = dbauth.GetUserId(UserName);
-                ViewBag.BookingList = db.GetBookingList().FindAll(u => u.UserId == userId);
+                using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
+                {
+                    var userId = dbauth.GetUserId(UserName);
+                    ViewBag.BookingList = db.GetBookingList().FindAll(u => u.UserId == userId);
+                }
+                return View("PersonalPage");
             }
-            return View("PersonalPage");
+            return View("Index");
         }
 
         //public ActionResult About()
