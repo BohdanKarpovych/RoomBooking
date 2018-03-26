@@ -1,28 +1,19 @@
-﻿@{
+﻿@model RoomBooking.Models.ViewModels.BookModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-    <link rel="stylesheet" href="/resources/demos/style.css"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <title>Order</title>
-</head>
-<body>
-    <div>
-        <h3>Order a room @ViewBag.RoomNumber</h3>
-        @if (ViewBag.RoomSchedule.Count > 0)
-        {
-            <h4>Actual room schedule</h4>
+<div>
+    <h3>Order a room @Model.RoomNumber</h3>
+    @if (Model.RoomSchedule.Count > 0)
+    {
+        <h4>Actual room schedule</h4>
             <table class="mainTables">
                 <tr class="mainTables">
                     <th class="mainTables"><p>Date</p></th>
                     <th class="mainTables"><p>Starting</p></th>
                     <th class="mainTables"><p>Ending</p></th>
                 </tr>
-                @foreach (var item in ViewBag.RoomSchedule)
+                @foreach (var item in Model.RoomSchedule)
                 {
                     <tr class="mainTables">
                         <td class="mainTables"><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
@@ -31,37 +22,35 @@
                     </tr>
                 }
             </table>
-        }
-        <form method="post" action="">
-            <input type="hidden" value="@ViewBag.RoomId" name="RoomId" />
-            <input type="hidden" value="@ViewBag.UserId" name="UserId">
-            <table>
-                <tr>
-                    <td><p>Select date</p></td>
-                    <td><input type="text" id="datepicker" name="Date" required></td>
-                </tr>
-                <tr>
-                    <td><p>Select time(working hours: 9:00 AM - 07:00 PM)</p></td>
-                    <td><input type="time" name="StartOfSession" required /> </td>
-                </tr>
-                <tr>
-                    <td><p>Duration(min)</p></td>
-                    <td><input type="number" name="Duration" required min="30" step="30" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Submit" /></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker({
-                minDate: 0,
-                maxDate: "+1m"
-            });
+    }
+    <form method="post" action="">
+        <input type="hidden" value="@Model.RoomId" name="RoomId" />
+        <input type="hidden" value="@Model.UserId" name="UserId">
+        <table>
+            <tr>
+                <td><p>Select date</p></td>
+                <td><input type="text" id="datepicker" name="Date" required></td>
+            </tr>
+            <tr>
+                <td><p>Select time(working hours: 9:00 AM - 07:00 PM)</p></td>
+                <td><input type="time" name="StartOfSession" required /> </td>
+            </tr>
+            <tr>
+                <td><p>Duration(min)</p></td>
+                <td><input type="number" name="Duration" required min="30" step="30" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            minDate: 0,
+            maxDate: "+1m"
         });
-    </script>
-</body>
-</html>
+    });
+</script>

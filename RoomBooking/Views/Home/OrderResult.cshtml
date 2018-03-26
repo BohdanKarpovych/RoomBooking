@@ -1,13 +1,14 @@
-﻿@{
+﻿@model RoomBooking.Models.ViewModels.OrderResultModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>OrderResult</h2>
-@if (ViewBag.Status)
+@if (Model.Status)
 {
-    <p>@ViewBag.Message</p>
+    <p>@Model.Message</p>
 }
 else
 {
-    <p style="color:red">@ViewBag.Message</p>
+    <p style="color:red">@Model.Message</p>
 }

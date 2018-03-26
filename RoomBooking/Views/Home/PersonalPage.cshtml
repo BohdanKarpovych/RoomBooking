@@ -1,32 +1,25 @@
-﻿@{
+﻿@model RoomBooking.Models.ViewModels.PersonalPageModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>PersonalPage</title>
-</head>
-<body>
-    <h2>Yours bookings</h2>
-    <table class="mainTables">
+<h2>Yours bookings</h2>
+<table class="mainTables">
+    <tr class="mainTables">
+        <th class="mainTables"><p>Room number</p></th>
+        <th class="mainTables"><p>Date</p></th>
+        <th class="mainTables"><p>Starting</p></th>
+        <th class="mainTables"><p>Ending</p></th>
+    </tr>
+    @foreach (var item in Model.BookingList)
+    {
         <tr class="mainTables">
-            <th class="mainTables"><p>Room number</p></th>
-            <th class="mainTables"><p>Date</p></th>
-            <th class="mainTables"><p>Starting</p></th>
-            <th class="mainTables"><p>Ending</p></th>
+            <td class="mainTables"><p>@item.RoomNumber</p></td>
+            <td class="mainTables"><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
+            <td class="mainTables"><p>@item.StartOfSession.ToString("HH:mm")</p></td>
+            <td class="mainTables"><p>@item.EndOfSession.ToString("HH:mm")</p></td>
         </tr>
-        @foreach (var item in ViewBag.BookingList)
-        {
-            <tr class="mainTables">
-                <td class="mainTables"><p>@item.Room.RoomNumber</p></td>
-                <td class="mainTables"><p>@item.StartOfSession.ToString("dd/MM/yyyy")</p></td>
-                <td class="mainTables"><p>@item.StartOfSession.ToString("HH:mm")</p></td>
-                <td class="mainTables"><p>@item.EndOfSession.ToString("HH:mm")</p></td>
-            </tr>
-        }
-    </table>
-    <br />
-</body>
-</html>
+    }
+</table>
+<br />
 

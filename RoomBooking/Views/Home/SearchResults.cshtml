@@ -1,28 +1,20 @@
-﻿@{
+﻿@model System.Collections.Generic.List<RoomBooking.Models.Room>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Rooms list</title>
-</head>
-<body>
-    <div>
-        <p>Search results</p>
-        <table class="mainTables">
-            <tr class="mainTables">
-                <th class="mainTables" colspan="2"><p>Room list</p></th>
-            </tr>
-            @foreach (var item in ViewBag.Rooms)
+<div>
+    <p>Search results</p>
+    <table class="mainTables">
+        <tr class="mainTables">
+            <th class="mainTables" colspan="2"><p>Room list</p></th>
+        </tr>
+        @foreach (var item in Model)
             {
-                <tr class="mainTables">
-                    <td class="mainTables"><p>@item.RoomNumber</p></td>
-                    <td class="mainTables"><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
-                </tr>
-            }
-        </table>
-    </div>
-</body>
-</html>
-
+            <tr class="mainTables">
+                <td class="mainTables"><p>@item.RoomNumber</p></td>
+                <td class="mainTables"><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+            </tr>
+        }
+    </table>
+</div>

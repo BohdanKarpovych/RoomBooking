@@ -1,35 +1,27 @@
-﻿@model PagedList.IPagedList<RoomBooking.Models.Room>
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<RoomBooking.Models.Room>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Rooms list</title>
-</head>
-<body>
-    <p><a href="/Home/Find">Search</a></p>
-    <div style="min-height:300px">
-        <table class="mainTables">
-            <tr class="mainTables">
-                <th colspan="2"><p>Room list</p></th>
-            </tr>
-            @foreach (var item in Model)
+<p><a href="/Home/Find">Search</a></p>
+<div style="min-height:300px">
+    <table class="mainTables">
+        <tr class="mainTables">
+            <th colspan="2"><p>Room list</p></th>
+        </tr>
+        @foreach (var item in Model)
             {
-                <tr class="mainTables">
-                    <td class="mainTables"><p>@item.RoomNumber</p></td>
-                    <td class="mainTables"><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
-                </tr>
-            }
-        </table>
-    </div>
-    <br/>
-    <div>
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-    </div>
-</body>
-</html>
+            <tr class="mainTables">
+                <td class="mainTables"><p>@item.RoomNumber</p></td>
+                <td class="mainTables"><p><a href="/Home/Book/@item.RoomId">Book</a></p></td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

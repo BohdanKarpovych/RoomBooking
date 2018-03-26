@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using RoomBooking.Models;
 using System.Collections.Generic;
 using RoomBooking.ServiceClasses;
-using System.Linq;
+using RoomBooking.Models.ViewModels;
 using RoomBooking.Repositories;
 using PagedList;
 
@@ -31,16 +31,17 @@ namespace RoomBooking.Controllers
         {
             if (id != null)
             {
-                ViewBag.RoomNumber = db.GetRoomList().Find(x => x.RoomId == id).RoomNumber;
-                ViewBag.RoomId = id;
+                BookModel bookModel = new BookModel();
+                bookModel.RoomNumber = db.GetRoomList().Find(x => x.RoomId == id).RoomNumber;
+                bookModel.RoomId = (int)id;
                 using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
                 {
-                    ViewBag.UserId = dbauth.GetUserId(User.Identity.Name);
+                    bookModel.UserId = dbauth.GetUserId(User.Identity.Name);
                 }
                 var bookingsOfCurrentRoom = db.GetActualBookingList().FindAll(x => x.RoomId == id);
                 bookingsOfCurrentRoom.Sort((a, b) => a.StartOfSession.CompareTo(b.StartOfSession));
-                ViewBag.RoomSchedule = bookingsOfCurrentRoom;
-                return View();
+                bookModel.RoomSchedule = bookingsOfCurrentRoom;
+                return View(bookModel);
             }
             return Redirect("/Home/Index");
         }
@@ -56,9 +57,7 @@ namespace RoomBooking.Controllers
             }
             catch (FormatException)
             {
-                ViewBag.Status = false;
-                ViewBag.Message = "Date is invalid";
-                return View("OrderResult");
+                return View("OrderResult", new OrderResultModel() { Status = false, Message = "Date is invalid" });
             }
             booking.EndOfSession = booking.StartOfSession.AddMinutes(Duration);
             List<Booking> bookings = db.GetBookingList();
@@ -68,13 +67,10 @@ namespace RoomBooking.Controllers
             {
                 db.Create(booking);
                 db.Save();
-                ViewBag.Status = true;
-                ViewBag.Message = "Your order has been succesfully done!";
-                return View("OrderResult");
+                return View("OrderResult", new OrderResultModel() { Status = true, Message = "Your order has been succesfully done!" });
+
             }
-            ViewBag.Status = false;
-            ViewBag.Message = "Time is unavailable";
-            return View("OrderResult");
+            return View("OrderResult", new OrderResultModel() { Status = false, Message = "Time is unavailable" });
         }
 
         [HttpGet]
@@ -86,8 +82,7 @@ namespace RoomBooking.Controllers
         [HttpPost]
         public ActionResult Find(string keyword)
         {
-            ViewBag.Rooms = db.GetRoomList().FindAll(x => x.RoomNumber.Contains(keyword)); 
-            return View("SearchResults");
+            return View("SearchResults", db.GetRoomList().FindAll(x => x.RoomNumber.Contains(keyword)));
         }
 
         [HttpGet]
@@ -95,12 +90,17 @@ namespace RoomBooking.Controllers
         {
             if (UserName != null)
             {
+                PersonalPageModel personalPageModel = new PersonalPageModel();
                 using (RoomBookingAuthRepository dbauth = new RoomBookingAuthRepository())
                 {
                     var userId = dbauth.GetUserId(UserName);
-                    ViewBag.BookingList = db.GetBookingList().FindAll(u => u.UserId == userId);
+                    var temp = db.GetBookingList().FindAll(u => u.UserId == userId);
+                    foreach (var item in temp)
+                    {
+                        personalPageModel.BookingList.Add(new Item() { RoomNumber = item.Room.RoomNumber, StartOfSession = item.StartOfSession, EndOfSession = item.EndOfSession });
+                    }
                 }
-                return View("PersonalPage");
+                return View("PersonalPage", personalPageModel);
             }
             return View("Index");
         }
