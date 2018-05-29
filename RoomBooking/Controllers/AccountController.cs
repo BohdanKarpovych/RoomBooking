@@ -28,15 +28,15 @@ namespace RoomBooking.Controllers
         {
             RoomBookingContext a = new RoomBookingContext();
 
-            //var result = a.Users.SqlQuery($"SELECT * FROM dbo.Users WHERE Login = '{model.Login}' AND Password = '{model.Password}'").ToList();
+            var result = a.Users.SqlQuery($"SELECT * FROM dbo.Users WHERE Login = '{model.Login}' AND Password = '{model.Password}'").ToList();
 
-            var login = new SqlParameter("@login", model.Login);
-            var pass = new SqlParameter("@pass", model.Password);
-            var result = a.Users.SqlQuery($"SELECT * FROM dbo.Users WHERE Login = @login AND Password = @pass", login, pass).ToList();
+            //var login = new SqlParameter("@login", model.Login);
+            //var pass = new SqlParameter("@pass", model.Password);
+            //var result = a.Users.SqlQuery($"SELECT * FROM dbo.Users WHERE Login = @login AND Password = @pass", login, pass).ToList();
 
             if (result.Count != 0)
             {
-                FormsAuthentication.SetAuthCookie(model.Login, true);
+                FormsAuthentication.SetAuthCookie(result.FirstOrDefault().Login, true);
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
